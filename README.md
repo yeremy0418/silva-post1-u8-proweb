@@ -1,4 +1,4 @@
-# estudiantes-post1-u8
+# silva-post1-u8
 
 CRUD completo de la entidad **Estudiante** usando Spring Boot 3.2, Spring Data JPA, Hibernate y MySQL.
 
