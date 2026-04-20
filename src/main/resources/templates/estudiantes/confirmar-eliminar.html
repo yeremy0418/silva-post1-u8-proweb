@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Confirmar eliminación</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+               background: #f4f6f9; color: #333; }
+        header { background: #1a3a6b; color: white; padding: 1rem 2rem; }
+        header h1 { font-size: 1.4rem; }
+        .container { max-width: 480px; margin: 2.5rem auto; padding: 0 1rem; }
+        .card { background: white; border-radius: 8px; padding: 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,.1); text-align: center; }
+        .icon { font-size: 3rem; margin-bottom: 1rem; }
+        h2 { color: #c0392b; margin-bottom: 1rem; }
+        p  { color: #555; margin-bottom: .5rem; font-size: .95rem; }
+        .info { background: #fdf0ef; border: 1px solid #f5c6cb;
+                border-radius: 4px; padding: 1rem; margin: 1.2rem 0;
+                text-align: left; }
+        .info span { display: block; font-size: .88rem; margin-bottom: .3rem; }
+        .info strong { color: #1a3a6b; }
+        .form-actions { display: flex; gap: 1rem; justify-content: center;
+                        margin-top: 1.5rem; }
+        .btn { display: inline-block; padding: .55rem 1.4rem; border-radius: 4px;
+               text-decoration: none; font-size: .9rem; cursor: pointer; border: none; }
+        .btn-danger  { background: #c0392b; color: white; }
+        .btn-danger:hover  { background: #a93226; }
+        .btn-secondary { background: #adb5bd; color: white; }
+        .btn-secondary:hover { background: #868e96; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📋 Gestión de Estudiantes</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+        <div class="icon">⚠️</div>
+        <h2>Confirmar eliminación</h2>
+        <p>¿Estás seguro de que deseas eliminar al siguiente estudiante?</p>
+        <p>Esta acción <strong>no se puede deshacer.</strong></p>
+
+        <div class="info">
+            <span><strong>Nombre:</strong>
+                <span th:text="${estudiante.nombre + ' ' + estudiante.apellido}"></span>
+            </span>
+            <span><strong>Correo:</strong>
+                <span th:text="${estudiante.correo}"></span>
+            </span>
+            <span><strong>Carrera:</strong>
+                <span th:text="${estudiante.carrera}"></span>
+            </span>
+        </div>
+
+        <div class="form-actions">
+            <form th:action="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
+                  method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            </form>
+            <a th:href="@{/estudiantes}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

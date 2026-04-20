@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Estudiantes</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+               background: #f4f6f9; color: #333; }
+        header { background: #1a3a6b; color: white; padding: 1rem 2rem;
+                 display: flex; align-items: center; gap: 1rem; }
+        header h1 { font-size: 1.4rem; }
+        .container { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+        .toolbar { display: flex; justify-content: space-between;
+                   align-items: center; margin-bottom: 1.2rem; }
+        .btn { display: inline-block; padding: .5rem 1.2rem; border-radius: 4px;
+               text-decoration: none; font-size: .9rem; cursor: pointer; border: none; }
+        .btn-primary { background: #1a3a6b; color: white; }
+        .btn-primary:hover { background: #254d96; }
+        .btn-warning { background: #e6a817; color: white; }
+        .btn-warning:hover { background: #c9911a; }
+        .btn-danger  { background: #c0392b; color: white; }
+        .btn-danger:hover  { background: #a93226; }
+        table { width: 100%; border-collapse: collapse; background: white;
+                border-radius: 6px; overflow: hidden;
+                box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+        thead { background: #1a3a6b; color: white; }
+        th, td { padding: .75rem 1rem; text-align: left; font-size: .9rem; }
+        tbody tr:nth-child(even) { background: #f0f4fa; }
+        tbody tr:hover { background: #dce6f5; }
+        .actions { display: flex; gap: .5rem; }
+        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb;
+                         padding: .75rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+        .empty { text-align: center; color: #888; padding: 2rem; font-size: .95rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📋 Gestión de Estudiantes</h1>
+</header>
+
+<div class="container">
+
+    <!-- Mensaje flash -->
+    <div th:if="${mensaje}" class="alert-success" th:text="${mensaje}"></div>
+
+    <div class="toolbar">
+        <h2>Lista de Estudiantes</h2>
+        <a th:href="@{/estudiantes/nuevo}" class="btn btn-primary">+ Nuevo Estudiante</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Carrera</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(estudiantes)}">
+                <td colspan="6" class="empty">No hay estudiantes registrados aún.</td>
+            </tr>
+            <tr th:each="e : ${estudiantes}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.nombre}"></td>
+                <td th:text="${e.apellido}"></td>
+                <td th:text="${e.correo}"></td>
+                <td th:text="${e.carrera}"></td>
+                <td class="actions">
+                    <a th:href="@{/estudiantes/editar/{id}(id=${e.id})}"
+                       class="btn btn-warning">Editar</a>
+                    <a th:href="@{/estudiantes/eliminar/{id}(id=${e.id})}"
+                       class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

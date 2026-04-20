@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${titulo}">Formulario</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+               background: #f4f6f9; color: #333; }
+        header { background: #1a3a6b; color: white; padding: 1rem 2rem; }
+        header h1 { font-size: 1.4rem; }
+        .container { max-width: 520px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: white; border-radius: 8px; padding: 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+        h2 { margin-bottom: 1.5rem; color: #1a3a6b; font-size: 1.2rem; }
+        .form-group { margin-bottom: 1.1rem; }
+        label { display: block; font-size: .88rem; font-weight: 600;
+                margin-bottom: .35rem; color: #555; }
+        input[type=text], input[type=email] {
+            width: 100%; padding: .55rem .8rem; border: 1px solid #ccc;
+            border-radius: 4px; font-size: .95rem; transition: border-color .2s; }
+        input:focus { outline: none; border-color: #1a3a6b; }
+        .error { color: #c0392b; font-size: .82rem; margin-top: .3rem; display: block; }
+        .form-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .btn { display: inline-block; padding: .55rem 1.4rem; border-radius: 4px;
+               text-decoration: none; font-size: .9rem; cursor: pointer; border: none; }
+        .btn-primary { background: #1a3a6b; color: white; }
+        .btn-primary:hover { background: #254d96; }
+        .btn-secondary { background: #adb5bd; color: white; }
+        .btn-secondary:hover { background: #868e96; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📋 Gestión de Estudiantes</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2 th:text="${titulo}">Formulario</h2>
+
+        <form th:action="@{/estudiantes/guardar}"
+              th:object="${estudiante}"
+              method="post">
+
+            <!-- ID oculto (necesario para la actualización) -->
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" th:field="*{nombre}"
+                       placeholder="Ej: Carlos" />
+                <span class="error"
+                      th:if="${#fields.hasErrors('nombre')}"
+                      th:errors="*{nombre}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" th:field="*{apellido}"
+                       placeholder="Ej: Ramírez" />
+                <span class="error"
+                      th:if="${#fields.hasErrors('apellido')}"
+                      th:errors="*{apellido}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" th:field="*{correo}"
+                       placeholder="Ej: carlos@correo.com" />
+                <span class="error"
+                      th:if="${#fields.hasErrors('correo')}"
+                      th:errors="*{correo}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="carrera">Carrera</label>
+                <input type="text" id="carrera" th:field="*{carrera}"
+                       placeholder="Ej: Ingeniería de Sistemas" />
+                <span class="error"
+                      th:if="${#fields.hasErrors('carrera')}"
+                      th:errors="*{carrera}"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a th:href="@{/estudiantes}" class="btn btn-secondary">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
